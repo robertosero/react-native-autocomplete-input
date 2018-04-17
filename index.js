@@ -123,7 +123,7 @@ class Autocomplete extends Component {
       maxItems,
       keyExtractor
     } = this.props;
-    let height = Math.min(itemHeight*data.length,maxItems*itemHeight);
+    const height = Math.min(itemHeight*data.length,maxItems*itemHeight);
     return (
       <FlatList
         ref={(resultList) => { this.resultList = resultList; }}
@@ -186,14 +186,16 @@ class Autocomplete extends Component {
 
 const androidStyles = {
   container: {
-    flex: 1
   },
   inputContainer: {
     marginBottom: 0
   },
   list: {
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    position: 'absolute',
     backgroundColor: 'white',
-    borderTopWidth: 0,
     margin: 10,
     marginTop: 0
   }
@@ -210,10 +212,9 @@ const iosStyles = {
   },
   list: {
     backgroundColor: 'white',
-    borderTopWidth: 0,
     left: 0,
     position: 'absolute',
-    right: 0,
+    right: 0
   }
 };
 

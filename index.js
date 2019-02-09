@@ -75,7 +75,15 @@ class Autocomplete extends Component {
     /**
      * renders custom TextInput. All props passed to this function.
      */
-    renderTextInput: PropTypes.func
+    renderTextInput: PropTypes.func,
+    /**
+     * Height of each item in results list
+     */
+    itemHeight: PropTypes.number,
+    /**
+     * Max items to show in result list
+     */
+    maxItems: PropTypes.number
   };
 
   static defaultProps = {
@@ -85,7 +93,7 @@ class Autocomplete extends Component {
     onStartShouldSetResponderCapture: () => false,
     renderItem: rowData => <Text>{rowData}</Text>,
     renderSeparator: null,
-    renderTextInput: props => <TextInput {...props} />
+    renderTextInput: props => <TextInput {...props} />,
   };
 
   constructor(props) {
@@ -129,7 +137,9 @@ class Autocomplete extends Component {
         ref={(resultList) => { this.resultList = resultList; }}
         data={data}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-        renderItem={renderItem}
+        renderItem={({item,index} => {
+          return (<View style={{height: itemHeight}}>{renderItem()}</View>)
+        })}
         keyExtractor={keyExtractor || ((item,index) => index.toString())}
         renderSeparator={renderSeparator}
         onEndReached={onEndReached}
